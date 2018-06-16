@@ -11,13 +11,18 @@ namespace DesktopBlazor.Wpf
 {
     public class FileApi : IHttpApi
     {
+        private readonly IFileSystem fileSystem;
         public string Name => "FileApi";
 
-        public IResourceHandler GetResourceHandler(string path)
+        public FileApi(IFileSystem fileSystem)
         {
-            var file = new File { Kind = FileKind.File, Path = "asdf" };
-            var json = JsonConvert.SerializeObject(new[] { file });
-            return ResourceHandler.FromString(json, mimeType: "application/javascript");
+            this.fileSystem = fileSystem;
+        }
+
+        public byte[] ProcessRequest(string path)
+        {
+            return Encoding.UTF8.GetBytes(
+                JsonConvert.SerializeObject(fileSystem.GetFiles(path).ToArray()));
         }
     }
 }

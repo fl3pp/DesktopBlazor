@@ -11,15 +11,18 @@ namespace DesktopBlazor.Wpf
     internal sealed class ResourceManager : IResourceHandlerFactory
     {
         public bool HasHandlers => true;
-        private readonly IHttpApi[] apis;
         private readonly string defaultPath;
+        private readonly IHttpApi[] apis;
+        private readonly IMimeTypeResolver mimeResolver;
 
         public ResourceManager(
             string defaultPath,
-            IHttpApi[] apis)
+            IHttpApi[] apis,
+            IMimeTypeResolver mimeResolver)
         {
             this.defaultPath = defaultPath;
             this.apis = apis;
+            this.mimeResolver = mimeResolver;
         }
 
         public IResourceHandler GetResourceHandler(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request)
@@ -29,8 +32,9 @@ namespace DesktopBlazor.Wpf
             if (requestUrl == string.Empty) requestUrl = defaultPath;
 
             var api = GetApi(requestUrl);
+            var mimeType = mimeResolver.GetMimeType(Path.GetFileName(requestUrl));
 
-            return api.GetResourceHandler(requestUrl);
+            return ResourceHandler.FromByteArray(api.ProcessRequest(requestUrl), mimeType);
         }
 
         private IHttpApi GetApi(string path)

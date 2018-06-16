@@ -27,9 +27,10 @@ namespace DesktopBlazor.Wpf
                 "webapp/index.html",
                 new IHttpApi[]
                 {
-                    new WebAppApi(System.IO.Path.GetDirectoryName(typeof(ResourceManager).Assembly.Location) + "\\dist", new MimeTypeResolver()),
-                    new FileApi(),
-                }
+                    new WebAppApi(System.IO.Path.GetDirectoryName(typeof(ResourceManager).Assembly.Location) + "\\dist"),
+                    new FileApi(new FileSystem()),
+                },
+                new MimeTypeResolver()
             );
 
             var url = "http://webapp/";
