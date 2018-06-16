@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf", "DesktopBlazor.Wpf\Wpf.csproj", "{C74A9E76-693B-4421-B132-C35A60F0C216}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "..\DesktopBlazor.Contracts\Contracts.csproj", "{33AABD54-A8D1-42BD-A704-5B4A0761BC3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "..\Shared\DesktopBlazor.Contracts\Contracts.csproj", "{33AABD54-A8D1-42BD-A704-5B4A0761BC3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.Test", "DesktopBlazor.Wpf.Test\Wpf.Test.csproj", "{EA0E977C-51B1-437A-8C32-424BF5D980F2}"
 EndProject

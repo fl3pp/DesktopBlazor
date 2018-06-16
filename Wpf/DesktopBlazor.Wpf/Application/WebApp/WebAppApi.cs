@@ -18,9 +18,9 @@ namespace DesktopBlazor.Wpf
             this.webAppDirectory = webAppDirectory;
         }
 
-        public byte[] ProcessRequest(string path)
+        public byte[] ProcessRequest(RequestUrl url)
         {
-            var requestedLocalFile = path.Substring(7).Trim('/').Replace('/', '\\');
+            var requestedLocalFile = url.Resource.Replace('/', '\\');
             if (requestedLocalFile == string.Empty) requestedLocalFile = "index.html";
             var bytes = File.ReadAllBytes(Path.Combine(webAppDirectory, requestedLocalFile));
             return bytes;

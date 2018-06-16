@@ -10,6 +10,6 @@ namespace DesktopBlazor.Wpf
     public interface IHttpApi
     {
         string Name { get; }
-        byte[] ProcessRequest(string path);
+        byte[] ProcessRequest(RequestUrl path);
     }
 }

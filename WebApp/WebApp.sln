@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "DesktopBlazor.WebApp\WebApp.csproj", "{96F7C494-1FA5-453F-A141-D8C9CF248686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "..\DesktopBlazor.Contracts\Contracts.csproj", "{F5966657-8F98-4A23-B8FF-A7003EA72396}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "..\Shared\DesktopBlazor.Contracts\Contracts.csproj", "{F5966657-8F98-4A23-B8FF-A7003EA72396}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

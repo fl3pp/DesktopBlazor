@@ -19,10 +19,19 @@ namespace DesktopBlazor.Wpf
             this.fileSystem = fileSystem;
         }
 
-        public byte[] ProcessRequest(string path)
+        public byte[] ProcessRequest(RequestUrl url)
         {
+            if (url.Resource != "files.json")
+                throw new InvalidOperationException("Api function unknown");
+
+            var folderParameter = url.Parameters.SingleOrDefault(
+                p => p.Key.Equals("directory", StringComparison.OrdinalIgnoreCase));
+
+            if (folderParameter == null)
+                throw new InvalidOperationException("Specify parameter directory");
+
             return Encoding.UTF8.GetBytes(
-                JsonConvert.SerializeObject(fileSystem.GetFiles(path).ToArray()));
+                JsonConvert.SerializeObject(fileSystem.GetFiles(folderParameter.Value).ToArray()));
         }
     }
 }

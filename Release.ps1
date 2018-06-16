@@ -14,7 +14,7 @@ if (Test-Path $TmpOut)
 	Remove-Item -Verbose -Force -Recurse $TmpOut
 }
 
-nuget restore $CD\DesktopBlazor.Contracts\Contracts.csproj
+nuget restore $CD\Shared\DesktopBlazor.Contracts\Contracts.csproj
 nuget restore $CD\Wpf\DesktopBlazor.Wpf\Wpf.csproj
 & $MsBuild /t:build "$CD\Wpf\DesktopBlazor.Wpf\Wpf.csproj" /p:OutDir=$Out;
 

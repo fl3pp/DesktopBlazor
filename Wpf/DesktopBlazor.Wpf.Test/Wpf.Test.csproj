@@ -61,7 +61,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DesktopBlazor.Contracts\Contracts.csproj">
+    <ProjectReference Include="..\..\Shared\DesktopBlazor.Contracts\Contracts.csproj">
       <Project>{33AABD54-A8D1-42BD-A704-5B4A0761BC3C}</Project>
       <Name>Contracts</Name>
     </ProjectReference>

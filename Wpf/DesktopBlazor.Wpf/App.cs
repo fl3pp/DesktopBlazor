@@ -45,6 +45,7 @@ namespace DesktopBlazor.Wpf
             var cefSettings = new CefSettings();
             cefSettings.JavascriptFlags = "--expose-wasm";
             cefSettings.RemoteDebuggingPort = 8000;
+
             Cef.Initialize(cefSettings);
         }
     }

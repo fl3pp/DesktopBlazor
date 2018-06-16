@@ -26,6 +26,9 @@ namespace DesktopBlazor.Wpf
             InitializeComponent();
             Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
             Browser.ResourceHandlerFactory = resourceManager;
+            Browser.BrowserSettings.WebSecurity = CefState.Disabled;
+            Browser.BrowserSettings.UniversalAccessFromFileUrls = CefState.Enabled;
+            Browser.BrowserSettings.UniversalAccessFromFileUrls = CefState.Enabled;
         }
 
         private void Browser_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)

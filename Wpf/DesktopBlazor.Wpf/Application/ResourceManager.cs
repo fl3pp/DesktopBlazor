@@ -27,23 +27,19 @@ namespace DesktopBlazor.Wpf
 
         public IResourceHandler GetResourceHandler(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request)
         {
-            var requestUrl = request.Url.Substring(7);
+            var requestUrl = RequestUrl.FromString(request.Url);
             
-            if (requestUrl == string.Empty) requestUrl = defaultPath;
-
-            var api = GetApi(requestUrl);
-            var mimeType = mimeResolver.GetMimeType(Path.GetFileName(requestUrl));
+            var api = GetApi(requestUrl.Api);
+            var mimeType = mimeResolver.GetMimeType(Path.GetFileName(requestUrl.Resource));
 
             return ResourceHandler.FromByteArray(api.ProcessRequest(requestUrl), mimeType);
         }
 
-        private IHttpApi GetApi(string path)
+        private IHttpApi GetApi(string apiName)
         {
-            var apiBasePath = new string(path.TakeWhile(c => c != '/').ToArray());
+            var api = apis.SingleOrDefault(a => a.Name.Equals(apiName, StringComparison.OrdinalIgnoreCase));
 
-            var api = apis.SingleOrDefault(a => a.Name.Equals(apiBasePath, StringComparison.OrdinalIgnoreCase));
-
-            if (api == null) throw new InvalidOperationException($"Api {apiBasePath} could not be found");
+            if (api == null) throw new InvalidOperationException($"Api {apiName} could not be found");
 
             return api;
         }

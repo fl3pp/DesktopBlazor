@@ -8,14 +8,22 @@ namespace DesktopBlazor.Wpf
 {
     public interface IMimeTypeResolver
     {
-        string GetMimeType(string fileExtension);
+        string GetMimeType(string file);
     }
 
     internal sealed class MimeTypeResolver : IMimeTypeResolver
     {
-        public string GetMimeType(string fileExtension)
+        public string GetMimeType(string file)
         {
-            switch (fileExtension.ToUpper())
+            if (file == string.Empty) return "text/html";
+
+            var fileExtensionStartIndex = file
+                .Select((c, i) => new { Character = c, Index = i })
+                .Last(c => c.Character == '.')
+                .Index;
+            var extension = file.Substring(fileExtensionStartIndex);
+
+            switch (extension.ToUpper())
             {
                 case ".HTML":
                     return "text/html";
@@ -32,7 +40,7 @@ namespace DesktopBlazor.Wpf
                 case ".WOFF2":
                     return "application/x-font-woff";
                 default:
-                    throw new NotSupportedException("extension not found");
+                    throw new NotImplementedException();
             }
         }
     }
