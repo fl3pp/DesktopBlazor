@@ -1,0 +1,30 @@
+﻿@inject HttpClient Http
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Folder" value="@folder">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="@UpdateFiles">Load</button>
+    </div>
+</div>
+
+<ul class="list-group">
+    @foreach (var file in files)
+    {
+        <li class="list-group-item">@file.Kind, @file.Path</li>
+    }
+</ul>
+
+@functions{
+    File[] files = new File[0];
+
+    [Parameter]
+    private string ApiUrl { get; set; }
+
+    private string folder;
+
+
+    async void UpdateFiles()
+    {
+        files = await Http.GetJsonAsync<File[]>(ApiUrl + "?path=" + folder.ToBase64());
+    }
+}
