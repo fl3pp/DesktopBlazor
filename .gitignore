@@ -26,6 +26,7 @@ bld/
 [Oo]ut/
 
 # Visual Studio 2015/2017 cache/options directory
+.vs/
 WebApp/.vs/
 Wpf/.vs/
 
