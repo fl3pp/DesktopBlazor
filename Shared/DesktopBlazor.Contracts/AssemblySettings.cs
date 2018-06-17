@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Test")]
+[assembly: InternalsVisibleTo("DesktopBlazor.Contracts.Test")]

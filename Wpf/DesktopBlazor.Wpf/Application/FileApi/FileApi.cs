@@ -3,6 +3,7 @@ using DesktopBlazor.Contracts;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,18 @@ namespace DesktopBlazor.Wpf
             if (folderParameter == null)
                 throw new InvalidOperationException("Specify parameter directory");
 
-            return Encoding.UTF8.GetBytes(
-                JsonConvert.SerializeObject(fileSystem.GetFiles(folderParameter.Value).ToArray()));
+
+            FilesRequestResponse response;
+            try
+            {
+                response = new FilesRequestResponse { Files = fileSystem.GetFiles(folderParameter.Value).ToArray() };
+            }
+            catch (IOException exception)
+            {
+                response = new FilesRequestResponse { ErrorMessage = exception.Message };
+            }
+
+            return Encoding.UTF8.GetBytes(response.ToJson());
         }
     }
 }

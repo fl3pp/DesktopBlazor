@@ -14,7 +14,7 @@ namespace DesktopBlazor.Wpf.Test
     public class FileApiTest
     {
         [TestMethod]
-        public void GetResourceHandler_ReuqestForFolder_ReturnsFolderJson()
+        public void ProcessRequest_FileSystemReturnsFiles_ReturnsFolderJson()
         {
             var setup = new TestSetup();
             var requestUrl = new RequestUrl("FileApi", "files.json", new RequestParameter[] { new RequestParameter("Directory", @"C:\temp") });
@@ -26,8 +26,26 @@ namespace DesktopBlazor.Wpf.Test
             var result = Encoding.UTF8.GetString(
                 testee.ProcessRequest(RequestUrl.FromString(requestUrl.ToString())));
 
-            Assert.AreEqual("[{\"Kind\":0,\"Path\":\"TestFile\"}]", result);
+            Assert.AreEqual("{\"files\":[{\"kind\":0,\"path\":\"TestFile\"}],\"errorMessage\":null}", result);
         }
+
+        [TestMethod]
+        public void ProcessRequest_FileSystemThrowsException_ReturnsFolderJson()
+        {
+            var setup = new TestSetup();
+            var requestUrl = new RequestUrl("FileApi", "files.json", new RequestParameter[] { new RequestParameter("Directory", @"C:\temp") });
+            setup.FileSystem
+                .Setup(x => x.GetFiles(It.IsAny<string>()))
+                .Throws(new System.IO.IOException("Could not load folder"));
+            var testee = setup.CreateTestee();
+
+            var result = Encoding.UTF8.GetString(
+                testee.ProcessRequest(RequestUrl.FromString(requestUrl.ToString())));
+
+            Assert.AreEqual("{\"files\":null,\"errorMessage\":\"Could not load folder\"}", result);
+        }
+
+
 
         private class TestSetup
         {

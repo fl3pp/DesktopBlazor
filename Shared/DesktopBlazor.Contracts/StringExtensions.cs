@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DesktopBlazor
 {
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         public static string SubstringOrEmpty(this string str, int startIndex)
         {

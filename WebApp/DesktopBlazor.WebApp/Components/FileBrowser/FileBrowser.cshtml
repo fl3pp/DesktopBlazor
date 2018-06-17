@@ -7,6 +7,8 @@
     </div>
 </div>
 
+<div>@error</div>
+
 <ul class="list-group">
     @foreach (var file in files)
     {
@@ -21,11 +23,25 @@
     File[] files = new File[0];
 
     private string folder { get; set; }
+    private string error { get; set; } = string.Empty;
 
     async void UpdateFiles()
     {
         var requestParmeter = new RequestParameter("Directory", HttpUtility.HtmlEncode(folder));
         var requestUrl = new RequestUrl(ApiUrl, "files.json", new[] { requestParmeter });
-        files = await Http.GetJsonAsync<File[]>(requestUrl.ToString());
+
+        var responseString = await Http.GetStringAsync(requestUrl.ToString());
+        var response = FilesRequestResponse.FromJson(responseString);
+
+        if (response.ErrorMessage != null)
+        {
+            error = response.ErrorMessage;
+            files = new File[0];
+        }
+        else
+        {
+            error = string.Empty;
+            files = response.Files;
+        }
     }
 }
